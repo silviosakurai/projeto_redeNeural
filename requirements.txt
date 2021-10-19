@@ -1,2 +1,8 @@
 flask==1.1.2
 gunicorn
+tensorflow
+tensorflow.keras
+numpy
+pandas
+sklearn
+pickle
