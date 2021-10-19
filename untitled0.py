@@ -6,14 +6,14 @@ This is a temporary script file.
 """
 
 import pandas as pd
+import tensorflow as tf
+from plotly.offline import plot
 from sklearn import preprocessing 
-
 from sklearn.model_selection import train_test_split
-
 import pickle
-import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
+import plotly.graph_objs as go
 
 
 classe = pd.read_csv('D:\POS\TCC\saidas.csv', encoding='latin-1', header=None)
@@ -75,11 +75,11 @@ classificador.add(Dense(units = 8, activation = 'elu', kernel_initializer='rando
 
 classificador.add(Dense(units=1, activation='sigmoid'))
 
-otimizador = keras.optimizers.Adam(lr= 0.001, decay = 0.001, clipvalue = 0.5)
+otimizador = tf.keras.optimizers.Adam(learning_rate= 0.001, decay = 0.001, clipvalue = 0.1521)
 
-classificador.compile(otimizador, loss='binary_crossentropy', metrics=['binary_accuracy'])
+classificador.compile(otimizador, loss='mse', metrics=['binary_accuracy'])
 
-classificador.fit(prev_train, class_train, batch_size=10, epochs=100)
+historico = classificador.fit(prev_train, class_train, batch_size=10, epochs=1000)
 
 classificador_json = classificador.to_json()
 
@@ -99,5 +99,16 @@ precisao = accuracy_score(class_test, previsoes)
 matriz = confusion_matrix(class_test, previsoes)
 
 resultado = classificador.evaluate(prev_test, class_test)
+
+fig = go.Figure()
+
+fig.add_trace(go.Scattergl(y=historico.history['binary_accuracy'],
+                    name='Valid'))
+
+fig.update_layout(height=500, width=1300,
+                  xaxis_title='Epoch',
+                  yaxis_title='Acurácia')
+
+plot(fig, auto_open=True)
 
 print(resultado)

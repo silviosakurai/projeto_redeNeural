@@ -4,7 +4,7 @@ Created on Mon Oct 18 11:02:05 2021
 
 @author: silvi
 """
-import tensorflow_cpu.keras as keras
+import tensorflow.keras as keras
 import pandas as pd
 import pickle
 from flask import Flask
@@ -43,8 +43,7 @@ class RedeNeural(Resource):
         }
         previsores = pd.DataFrame(data=data, index=[0])
         
-        print(previsores)
-        
+       
         tumor_encoder = open('tumor_encoder.pkl', 'rb')
         le = pickle.load(tumor_encoder) 
         tumor_encoder.close()
@@ -76,9 +75,8 @@ class RedeNeural(Resource):
         previsores['CID'] = le.transform(previsores['CID'])
         
 
-        print(previsores)
-        resultado =  model.predict(previsores).tolist()
-        
+        resultado =  round(model.predict(previsores)[0,0])
+        print(resultado)
         return {'data': resultado}, 200
 
 
