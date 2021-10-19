@@ -1,6 +1,4 @@
 flask==1.1.2
-gunicorn
 tensorflow
-numpy
 pandas
 sklearn

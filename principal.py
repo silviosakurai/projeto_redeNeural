@@ -6,7 +6,6 @@ Created on Mon Oct 18 11:02:05 2021
 """
 import tensorflow.keras as keras
 import pandas as pd
-import numpy as np
 import pickle
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
