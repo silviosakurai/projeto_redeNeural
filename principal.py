@@ -4,7 +4,7 @@ Created on Mon Oct 18 11:02:05 2021
 
 @author: silvi
 """
-import tensorflow.keras as keras
+import tensorflow_cpu.keras as keras
 import pandas as pd
 import pickle
 from flask import Flask
