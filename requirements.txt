@@ -4,4 +4,3 @@ tensorflow
 numpy
 pandas
 sklearn
-pickle
