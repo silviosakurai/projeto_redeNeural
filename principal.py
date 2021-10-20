@@ -4,14 +4,14 @@ Created on Mon Oct 18 11:02:05 2021
 
 @author: silvi
 """
-import tensorflow.keras as keras
+import tensorflow as tf
 import pandas as pd
 import pickle
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 
 with open("D:\POS\TCC\silvio_sakurai.json") as f:
-    model = keras.models.model_from_json(f.read())
+    model = tf.keras.models.model_from_json(f.read())
     model.load_weights("D:\POS\TCC\silvio_sakurai.h5")
 
 app = Flask(__name__)
